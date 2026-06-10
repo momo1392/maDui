@@ -476,7 +476,7 @@ const liveSum = computed(() => pendingEntries.value.reduce((acc, e) => acc + (Nu
           </div>
         </div>
         <div class="row">
-          <span class="label">扑克牌副数</span>
+          <span class="label">扑克牌副</span>
           <div class="ctrl">
             <div class="seg">
               <button
@@ -567,9 +567,9 @@ const liveSum = computed(() => pendingEntries.value.reduce((acc, e) => acc + (Nu
             <span class="team-chip" :class="`t-${team.id % 4}`">{{ TEAM_LETTERS[team.id % 4] }}</span>
             <input
               class="input-delta"
-              type="number"
+              type="text"
               inputmode="numeric"
-              step="5"
+              pattern="-?[0-9]*"
               placeholder="0"
               v-model="customInputs[team.id]"
             />

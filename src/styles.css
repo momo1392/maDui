@@ -42,7 +42,6 @@ html, body, #app {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  min-height: 100vh;
 }
 
 body {
@@ -83,7 +82,7 @@ input[type="number"] { -moz-appearance: textfield; }
 .hero {
   position: relative;
   margin: 4px 0 22px;
-  padding: 28px 20px 26px;
+  padding: 15px 20px;
   border-radius: 28px;
   overflow: hidden;
   background:
@@ -318,8 +317,8 @@ input[type="number"] { -moz-appearance: textfield; }
 /* ---------- Setup rows ---------- */
 .row {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 5px;
+  padding: 5px 0;
   border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .row:last-child { border-bottom: none; }
