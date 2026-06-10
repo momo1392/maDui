@@ -25,7 +25,9 @@ jobs:
           node-version: 20
           cache: npm
 
-      - run: npm ci
+      # 规避 npm optional deps bug（rollup 平台二进制在 lockfile 中缺失）
+      - run: rm -f package-lock.json
+      - run: npm install --no-audit --no-fund
 
       # 如果部署到 https://<user>.github.io/<repo>/，把 BASE 改成 /<repo>/
       # 如果是自定义域名或用户站（<user>.github.io 仓库），保持 "/"
