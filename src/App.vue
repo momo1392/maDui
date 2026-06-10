@@ -131,6 +131,14 @@ const loadPersisted = () => {
 
 watch(() => state, persist, { deep: true });
 
+watch(() => state.screen, () => {
+  nextTick(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
+});
+
 const teamCountOptions = [2, 3, 4];
 const deckOptions = [1, 2, 3, 4, 5];
 
@@ -142,6 +150,13 @@ const setTeamCount = (n: number) => {
 };
 
 const startGame = () => {
+  const t = Number(state.settings.threshold);
+  if (!Number.isFinite(t) || t < 100) {
+    showToast('出锅上限不能为空，且不能少于 100 分');
+    vibrate(20);
+    return;
+  }
+  state.settings.threshold = t;
   const names = state.settings.teamNames.slice(0, state.settings.teamCount);
   state.teams = names.map((name, i) => ({ id: i, name: name.trim() || `队伍${i + 1}`, score: 0 }));
   state.actions = [];
@@ -443,7 +458,7 @@ const liveSum = computed(() => pendingEntries.value.reduce((acc, e) => acc + (Nu
     <!-- ============ SETUP ============ -->
     <template v-if="state.screen === 'setup'">
       <div class="hero">
-        <span class="hero-version">v1.3</span>
+        <span class="hero-version">v1.4</span>
         <div class="hero-inner">
           <div class="hero-emblem">
             <span class="ring-outer"></span>
@@ -568,8 +583,6 @@ const liveSum = computed(() => pendingEntries.value.reduce((acc, e) => acc + (Nu
             <input
               class="input-delta"
               type="text"
-              inputmode="numeric"
-              pattern="-?[0-9]*"
               placeholder="0"
               v-model="customInputs[team.id]"
             />
